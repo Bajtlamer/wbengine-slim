@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Disallow: /login*
+Disallow: /registrace*
+Disallow: /profil*
+Disallow: /logout*
+Disallow: /basket*
+
+Disallow: /elektroprim*
+Disallow: /sbs*
+Disallow: /guba*
+Disallow: /mtb*
+Disallow: /dry-sucho*
+Disallow: /prokon*
+Disallow: /wow*
+Disallow: /vote*
+Disallow: /forum*
+Disallow: /sview*
+Disallow: /validia*
+Disallow: /achievement*
+Disallow: /download-*
+Disallow: /feed*
+Disallow: /addony-*
