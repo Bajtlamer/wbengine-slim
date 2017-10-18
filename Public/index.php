@@ -40,20 +40,14 @@ try {
     $App = new App( false );
 
 
-//    $App->get('/hello/{id}/test/{sekce}/', 'getNecox', function($response){
-    $App->get('/hello/id-{id}/e', 'getNecox', function($response){
-        die(var_dump($response));
+    $App->get('/hello/id-{iduser}/d', 'api@index', function($response){
+        die($response);
     });
 
+
     die('die');
-//        $name = $route->getParams('name');
-//        $response->getNeco()->write("Hello, $name");
-//        var_dump($box->getNeco($name));
-
-//        return $box;
 
 
-//die();
     /**
      * Initialize paths and environmets and run the application...
      */
