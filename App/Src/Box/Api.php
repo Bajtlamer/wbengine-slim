@@ -9,52 +9,45 @@
 namespace App\Box;
 
 
-use App\Box\Exception\BoxException;
-use Wbengine\Box\BoxController;
-use Wbengine\Box\Model;
-use Wbengine\Url;
+use Wbengine\Box\WbengineBoxAbstract;
+use Wbengine\Components\ComponentParentInterface;
+use Wbengine\Router\Route;
 
-class Api
+class Api extends WbengineBoxAbstract
 {
+    private $_params;
 
-    protected $values = array();
 
-
-    public function __construct()
+    public function __get($name)
     {
-//        $this->test = function($f){
-//            return $f->tiskni();
-//        };
-//        $this->getNeco = function($f){
-//            return $f->getNeco();
-//        };
-//        $this->getNecox = function($f){
-//            return $f->getNeco();
-//        };
-
-
-    }
-
-    function __set($id, $value)
-    {
-        $this->values[$id] = $value;
-    }
-
-    function __get($id)
-    {
-        if (!isset($this->values[$id]))
-        {
-            throw new BoxException(sprintf('Value "->%s<-" is not defined.', $id));
+        if($this->_params && is_array($this->_params)){
+            if(array_key_exists($name, $this->_params)){
+                return $this->_params[$name];
+            }
         }
+        return null;
+    }
 
-        return is_callable($this->values[$id]) ? $this->values[$id]($this) : $this->values[$id];
+    public function __construct(ComponentParentInterface $parent)
+    {
+        parent::__construct($parent);
+        if($parent instanceof Route){
+            $this->_params = $parent->getParams();
+        }
+    }
+
+    public static function index(){
+        return die('welcome');
+    }
+
+    public function netiskni(){
+        return ($this->getRenderer()->render('test', $this));
     }
 
 
-    public function tiskni(){
-        return 'Tak tedy tisknu';
+    public function apiGetSite(){
+        return 'Getting Site by ID:' . $this->site_id;
     }
-
 
     public function getNeco(){
         return 'Getting neco...';

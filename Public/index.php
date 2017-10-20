@@ -14,7 +14,8 @@
  */
 
 use App\App;
-use Wbengine\Application\Env;
+use App\Box\Central\Intro;
+use Wbengine\Router;
 
 
 define('APP_DIR', dirname(__DIR__));
@@ -25,33 +26,32 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
 
 try {
 
-    /**
-     * Create a new instance of object App. You can put environment type as boolean
-     * to use exact configuration to given environmet type...
-     *
-     * An alternates of environment detection:
-     * Env::autodetectEnvironment(Env::DETECT_ENV_TYPE_BY_HOSTNAME)
-     * Env::autodetectEnvironment(Env::DETECT_ENV_TYPE_BY_IP)
-     *
-     * @see Env abstract class abstract vars
-     *
-     * FALSE = Development | TRUE  = Production
-     */
-    $App = new App( false );
+//    $App = new App();
 
+    Router::get('/api/', 'api@index', function(){
+        echo('Welcome to Wbengine Rest API v1.0');
+    });
 
-    $App->get('/hello/id-{iduser}/d', 'api@index', function($response){
-        die($response);
+    Router::get('/api/site/{site_id}', 'api@apiGetSite', function($box){
+        echo($box->apiGetSite());
+    });
+
+    Router::get('/', '\App\Box\Central\Intro@getIntroBox', function($box){
+        echo($box->getIntroBox());
     });
 
 
-    die('die');
+
+//    die('die');
 
 
     /**
      * Initialize paths and environmets and run the application...
      */
 //    $App->init()->run();
+//    $App->init();
+
+//    var_dump($App->getVars());
 
 
 } catch (\Wbengine\Exception\RuntimeException $e) {

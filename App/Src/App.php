@@ -30,24 +30,17 @@ class App extends Application implements AppInterface
     const APP_TEMPLATE_PATH         = '/Src/View';
     const APP_TYPE_CACHE            = '/Cache';
     const APP_TYPE_RENDERER_TEMP    = '/Renderer';
-    const ENV_TYPE_PRODUCTION       = true;
 
 
 
-    public function __construct($env_production = true)
+    public function __construct()
     {
         self::$APP_BASE_DIR             = self::APP_BASE_DIR;
-        self::$APP_CONFIG_PATH          = self::APP_CONFIG_PATH;
-        self::$APP_TEMPLATE_PATH        = self::APP_TEMPLATE_PATH;
-        self::$APP_TYPE_CACHE           = self::APP_TYPE_CACHE;
-        self::$APP_TYPE_RENDERER_TEMP   = self::APP_TYPE_RENDERER_TEMP;
-        self::$ENV_TYPE_PRODUCTION      = self::ENV_TYPE_PRODUCTION;
+//        self::$APP_CONFIG_PATH          = self::APP_CONFIG_PATH;
+//        self::$APP_TEMPLATE_PATH        = self::APP_TEMPLATE_PATH;
+//        self::$APP_TYPE_CACHE           = self::APP_TYPE_CACHE;
+//        self::$APP_TYPE_RENDERER_TEMP   = self::APP_TYPE_RENDERER_TEMP;
 
-        if($env_production) {
-            $this->setConfigFile(Config::CONFIG_FILE_PRODUCCTION);
-        }else{
-            $this->setConfigFile(Config::CONFIG_FILE_DEVEL);
-        }
 
         /**
          * 1. LOAD CONFIGURATION
@@ -57,7 +50,7 @@ class App extends Application implements AppInterface
             Config::load(new File(
                     dirname(__DIR__) .
                     self::APP_CONFIG_PATH .
-                    $this->getConfigFile(),
+                    Config::CONFIG_FILE,
                     true)
             )
         );
@@ -100,18 +93,6 @@ class App extends Application implements AppInterface
             date_default_timezone_set(Config::getTimeZone());
 
 
-            /**
-             * 3. FIST TIME INIT OBJECT SITE
-             */
-
-            $this->getSite()->initialize($this);
-
-            /**
-             * 4. THE MINIMALIZE CSS FILE OPTION ...
-             */
-            if((boolean)Config::minimizeCss()){
-                $this->minimizeCssFiles(Config::getCssCollection(),  APP_DIR);
-            }
 
             } catch (SiteException $e) {
 
