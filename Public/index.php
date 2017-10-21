@@ -15,8 +15,9 @@
 
 use App\App;
 use App\Box\Central\Intro;
+use Wbengine\Application\Http\RequestInterface as Request;
+use Wbengine\Application\Http\ResponseInterface as Response;
 use Wbengine\Router;
-
 
 define('APP_DIR', dirname(__DIR__));
 
@@ -26,7 +27,7 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
 
 try {
 
-//    $App = new App();
+    $App = new App();
 
     Router::get('/api/', 'api@index', function(){
         echo('Welcome to Wbengine Rest API v1.0');
@@ -36,13 +37,17 @@ try {
         echo($box->apiGetSite());
     });
 
-    Router::get('/', '\App\Box\Central\Intro@getIntroBox', function($box){
-        echo($box->getIntroBox());
+    $App->get('/{version}', function(Request $request, Response $response){
+        $response->dispatch($request->getStaticBox('App\Box\Central\Intro@getIntroBoxUUU'));
+    });
+
+    Router::post('/{version}', '\App\Box\Central\Intro@getIntroBox', function($box){
+        die(json_encode($box));
     });
 
 
-
-//    die('die');
+//    header("HTTP/1.0 404 Not Found");
+//    die();
 
 
     /**

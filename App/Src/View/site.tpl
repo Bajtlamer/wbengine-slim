@@ -13,6 +13,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
         <link href="{$cdn.host}/Css/default{$meta.minimizeCss}.css" rel="StyleSheet" type="text/css" media="screen"/>
         <link href="{$cdn.host}/Css/bootstrap{$meta.minimizeCss}.css" rel="StyleSheet" type="text/css" media="screen"/>
+        <link href="/assets/css/bootstrap.min.css" rel="StyleSheet" type="text/css" media="screen"/>
     </head>
     <body>
     <!-- Static navbar -->
