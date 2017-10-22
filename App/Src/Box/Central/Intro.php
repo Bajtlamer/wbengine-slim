@@ -20,7 +20,7 @@ class Intro extends WbengineBoxAbstract
     }
 
     public function getIntroBox(){
-        return ($this->getRenderer()->render('intro', $this));
+        return ($this->getRenderer()->render('Intro', $this));
     }
 
 

@@ -28,17 +28,17 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
 try {
 
     $App = new App();
-
+    
     Router::get('/api/', 'api@index', function(){
         echo('Welcome to Wbengine Rest API v1.0');
     });
-
+    
     Router::get('/api/site/{site_id}', 'api@apiGetSite', function($box){
         echo($box->apiGetSite());
     });
 
     $App->get('/{version}', function(Request $request, Response $response){
-        $response->dispatch($request->getStaticBox('App\Box\Central\Intro@getIntroBoxUUU'));
+        $response->dispatch($request->getStaticBox('App\Box\Central\Intro@getIntroBox'));
     });
 
     Router::post('/{version}', '\App\Box\Central\Intro@getIntroBox', function($box){
@@ -61,7 +61,7 @@ try {
 
 } catch (\Wbengine\Exception\RuntimeException $e) {
 
-    if ($App instanceof App && $App->isDebugOn()) {
+    if (isset($App) && ($App instanceof App) && $App->isDebugOn()) {
         $string = sprintf(file_get_contents(dirname(__DIR__).'/Exception.html'), get_class($e), $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTraceAsString());
         echo($string);
     } else {

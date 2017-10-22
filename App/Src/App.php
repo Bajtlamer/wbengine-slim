@@ -36,10 +36,10 @@ class App extends Application implements AppInterface
     public function __construct()
     {
         self::$APP_BASE_DIR             = self::APP_BASE_DIR;
-//        self::$APP_CONFIG_PATH          = self::APP_CONFIG_PATH;
-//        self::$APP_TEMPLATE_PATH        = self::APP_TEMPLATE_PATH;
-//        self::$APP_TYPE_CACHE           = self::APP_TYPE_CACHE;
-//        self::$APP_TYPE_RENDERER_TEMP   = self::APP_TYPE_RENDERER_TEMP;
+        self::$APP_CONFIG_PATH          = self::APP_CONFIG_PATH;
+        self::$APP_TEMPLATE_PATH        = self::APP_TEMPLATE_PATH;
+        self::$APP_TYPE_CACHE           = self::APP_TYPE_CACHE;
+        self::$APP_TYPE_RENDERER_TEMP   = self::APP_TYPE_RENDERER_TEMP;
 
 
         /**
