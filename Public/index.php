@@ -14,7 +14,6 @@
  */
 
 use App\App;
-use App\Box\Central\Intro;
 use Wbengine\Application\Http\RequestInterface as Request;
 use Wbengine\Application\Http\ResponseInterface as Response;
 use Wbengine\Router;
@@ -25,20 +24,24 @@ define('APP_DIR', dirname(__DIR__));
 require(dirname(__DIR__) . '/vendor/autoload.php');
 
 
-try {
 
     $App = new App();
     
-    Router::get('/api/', 'api@index', function(){
-        echo('Welcome to Wbengine Rest API v1.0');
+    Router::get('/api/',  function(){
+        die('Welcome to Wbengine Rest API v1.0');
     });
     
-    Router::get('/api/site/{site_id}', 'api@apiGetSite', function($box){
-        echo($box->apiGetSite());
+    Router::get('/api/site/{site_id}',  function($box){
+        die(sprintf('You requested site %s.', ($box->getParams()['site_id'])));
     });
 
     $App->get('/{version}', function(Request $request, Response $response){
-        $response->dispatch($request->getStaticBox('App\Box\Central\Intro@getIntroBox'));
+//        echo($request->getParams()['version']);
+        $response->setValue('central', $request->getParams()['version']);
+    });
+
+    $App->get('/', function(Request $request, Response $response){
+        die($request->getStaticBox('App\Box\Central\Intro@getIntroBox'));
     });
 
     Router::post('/{version}', '\App\Box\Central\Intro@getIntroBox', function($box){
@@ -46,25 +49,5 @@ try {
     });
 
 
-//    header("HTTP/1.0 404 Not Found");
-//    die();
+    $App->init()->run();
 
-
-    /**
-     * Initialize paths and environmets and run the application...
-     */
-//    $App->init()->run();
-//    $App->init();
-
-//    var_dump($App->getVars());
-
-
-} catch (\Wbengine\Exception\RuntimeException $e) {
-
-    if (isset($App) && ($App instanceof App) && $App->isDebugOn()) {
-        $string = sprintf(file_get_contents(dirname(__DIR__).'/Exception.html'), get_class($e), $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTraceAsString());
-        echo($string);
-    } else {
-        error_log("Cauth Exception: " . get_class($e) . ", in object:" . $e->getMessage() . $e->getCode() .", in file:" . $e->getFile() . "(" . $e->getLine() . ")", 0);
-    }
-}
