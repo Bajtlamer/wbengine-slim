@@ -14,6 +14,7 @@
  */
 
 use App\App;
+use Wbengine\Application\Application;
 use Wbengine\Application\Http\RequestInterface as Request;
 use Wbengine\Application\Http\ResponseInterface as Response;
 use Wbengine\Router;
@@ -25,7 +26,7 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
 
 
 
-    $App = new App();
+    $App = new Application(dirname( __DIR__) . '/App');
     
     Router::get('/api/',  function(){
         die('Welcome to Wbengine Rest API v1.0');
@@ -41,7 +42,7 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
     });
 
     $App->get('/', function(Request $request, Response $response){
-        die($request->getStaticBox('App\Box\Central\Intro@getIntroBox'));
+        die($response->getStaticBox('App\Box\Central\Intro@getIntroBox'));
     });
 
     Router::post('/{version}', '\App\Box\Central\Intro@getIntroBox', function($box){
@@ -49,5 +50,5 @@ require(dirname(__DIR__) . '/vendor/autoload.php');
     });
 
 
-    $App->init()->run();
+    $App->run();
 
